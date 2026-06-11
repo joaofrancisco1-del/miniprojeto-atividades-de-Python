@@ -1,4 +1,4 @@
-def jogada1(a,b,matriz,f):
+def jogada1(a,b,matriz,f,matriz2):
     jogue=[]
     for p in b:
         jogue.append(p)
@@ -21,6 +21,8 @@ def jogada1(a,b,matriz,f):
         f += 1
     elif matriz[i][j] == " ":
         matriz[i][j] = a
+    if matriz2 [i][j] == "":
+        matriz2 [i][j]=a
     
 def resultado(matriz):#jogo da velha
     
@@ -69,16 +71,17 @@ def placar(a,b):
     if a == 3 and b < 3:
         print("JOGADOR 1 VENCEU!")
         print()
-    if a == 3 and b < 3:
+    if b == 3 and a < 3:
         print("JOGADOR 2 VENCEU!")
         print()
 
     print("          PLACAR")
     print(f"JOGADOR 1: {a} x {b} :JOGADOR 2")
-print("JOGO DA VELHA")
+print("JOGO DA VELHA")#começo do jogo
 sair = False
 ctr = 0
 matriz = [[" "," "," "],[" "," "," "],[" "," "," "]]
+matriz2 = [[" "," "," "],[" "," "," "],[" "," "," "]]#criei uma matriz clone que vou aplicar os numeros, pra fazer a soma e ver se ganhou ou nao
 while True:
     resultado(matriz)
     a1 = str(input("DIGITE SEU CARACTER JOGADOR 1: "))
@@ -93,11 +96,20 @@ while True:
                 d = 0
                 pos1 = str(input("DIGITE SUA JOGADA JOGADOR 1: "))
                 jogada1(a1,pos1,matriz,d)
-                if d != 0:
+                if d == 0:
                     break
                 else:
                     print("DIGITE UMA JOGADA VÁLIDA")
-        jogada1(a1,pos1,matriz,d)
+        resultado(matriz)
+        teste(matriz,z)
+        if ctr%2==0:
+            while True:
+                pos2=str(input("digita sua jogada jogador 2"))
+                jogada1(a2,pos2,matriz,d)
+                if d == 0:
+                    break
+                else:
+                    print("DIGITE UMA JOGADA VÁLIDA")
         resultado(matriz)
         teste(matriz,z)
         if z == 1:
@@ -120,7 +132,6 @@ while True:
             if z == 1:
                 pont1+=1
                 break
-
         ctr+=1
     if z == 0:
         print("EMPATE!")
