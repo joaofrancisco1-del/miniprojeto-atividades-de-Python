@@ -1,7 +1,11 @@
-def jogada1(a,b,matriz,f):
+def jogada1(a,b,matriz):
     jogue=[]
+    c = 0
     for p in b:
+        if c == 2:
+            break
         jogue.append(p)
+        c += 1
     for r in jogue:
         if r == 'a' or r == "A":
             jogue[1]= 0
@@ -17,10 +21,42 @@ def jogada1(a,b,matriz,f):
             jogue[0]= 2
     i = jogue[0]
     j = jogue[1]
-    if jogue [1] not in [0,1,2]:
-        f += 1
-    elif matriz[i][j] == " ":
+    if matriz[i][j] == " ":
         matriz[i][j] = a
+
+    
+        
+def tde(a,b,matriz): #ver se a jogada é válida
+    f = 0
+    jogue=[]
+    c = 0
+    for p in b:
+        if c == 2:
+            break
+        jogue.append(p)
+        c += 1
+    for r in jogue:
+        if r == 'a' or r == "A":
+            jogue[1]= 0
+        if r == 'b' or r == "B":
+            jogue[1]= 1
+        if  r == 'c' or r == "C":
+            jogue[1]= 2
+        if r == '1':
+            jogue[0]= 0
+        if r == '2':
+            jogue[0]= 1
+        if  r == '3':
+            jogue[0]= 2
+    if (jogue [1] != 0 and jogue [1] != 1 and jogue [1] != 2):
+        f += 1
+    if (jogue [1] == 0 or jogue [1] == 1 or jogue [1] == 2):
+        i = jogue[0]
+        j = jogue[1]
+        if matriz[i][j] != " ":
+            f += 1  
+    return f
+
 def resultado(matriz):#jogo da velha
     
     print("   A   B   C")
@@ -83,42 +119,37 @@ while True:
     ctr=1
     z = 0
     for x in range(1,10):
-        if ctr%2!=0:
+        if x % 2 != 0:
             c = 0
             while True:
-                d = 0
                 pos1 = str(input("DIGITE SUA JOGADA JOGADOR 1: "))
                 print()
-                jogada1(a1,pos1,matriz,d)
-                if d == 0:
+                if tde(a1,pos1,matriz) == 0:
                     break
                 else:
                     print("DIGITE UMA JOGADA VÁLIDA")
                     print()
+            jogada1(a1,pos1,matriz)
             resultado(matriz)
             print()
         if teste(matriz,c) != 0:
             pont1+=1
             break
-        elif ctr%2==0:
+        if x % 2 == 0:
             c = 0
             while True:
-                d = 0
                 pos2 = str(input("DIGITE SUA JOGADA JOGADOR 2: "))
                 print()
-                jogada1(a2,pos2,matriz,d)
-                if d == 0:
+                if tde(a2,pos2,matriz) == 0:
                     break
                 else:
                     print("DIGITE UMA JOGADA VÁLIDA")
                     print()
+            jogada1(a2,pos2,matriz)
             resultado(matriz)
             print()
         if teste(matriz,c) != 0:
             pont2+=1
             break
-        ctr+=1
-    if z == 0:
-        print("EMPATE!")
     placar(pont1,pont2)
     break
