@@ -152,4 +152,7 @@ while True:
             pont2+=1
             break
     placar(pont1,pont2)
-    break
+    continuar=input('QUER CONTINUAR JOGANDO? (S OU N)').lower()
+    if continuar=='n':
+        break
+    matriz = [[" "," "," "],[" "," "," "],[" "," "," "]]
